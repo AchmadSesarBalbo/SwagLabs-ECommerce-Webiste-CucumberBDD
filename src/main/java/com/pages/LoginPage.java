@@ -1,0 +1,46 @@
+package com.pages;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import java.time.Duration;
+
+public class LoginPage{
+    private Actions actions;
+
+    @FindBy(id = "user-name")
+    private WebElement usernameField;
+
+    @FindBy(id = "password")
+    private WebElement passwordField;
+
+    @FindBy(id = "login-button")
+    private WebElement loginButton;
+
+    @FindBy(xpath = "//*[@id=\"login_button_container\"]/div/form/h3")
+    private WebElement errorMessage;
+
+    public LoginPage(WebDriver driver) {
+        actions = new Actions(driver);
+        PageFactory.initElements(driver, this);
+    }
+
+    public void loginAction(String username, String password) {
+        actions.click(usernameField).sendKeys(username)
+                .pause(Duration.ofSeconds(1))
+                .click(passwordField).sendKeys(password)
+                .pause(Duration.ofSeconds(1))
+                .build().perform();
+    }
+
+    public void clickLogin() {
+        loginButton.click();
+    }
+
+    public String getErrorMessage(){
+        return errorMessage.getText();
+    }
+}
