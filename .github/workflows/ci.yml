@@ -9,10 +9,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    services:
-      selenium:
-        image: selenium/standalone-chrome:latest
-        options: --shm-size=2g
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -24,10 +20,10 @@ jobs:
           java-version: '17'
 
       - name: Build and Test with Maven
-        run: mvn clean test
+        run: mvn clean test -e
 
-      - name: Upload Surefire Reports
-        if: failure()  # hanya upload jika test gagal
+      - name: Upload Surefire Reports if Tests Fail
+        if: failure()
         uses: actions/upload-artifact@v3.1.3
         with:
           name: surefire-reports
