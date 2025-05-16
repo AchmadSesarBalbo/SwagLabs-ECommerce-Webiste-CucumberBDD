@@ -34,6 +34,6 @@ The project covers the following test scenarios:
 - **Checkout**: Complete checkout with valid details and test validations for missing buyer information.
 
 ## Link Document
-- **Youtube** :
+- **Youtube** : ...
 - **Test Scenario & Test Result** :
 - **Document SIT** :
