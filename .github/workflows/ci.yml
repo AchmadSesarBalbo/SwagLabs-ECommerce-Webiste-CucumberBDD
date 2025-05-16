@@ -19,8 +19,8 @@ jobs:
           distribution: 'liberica'
           java-version: '17'
 
-      - name: Build and Test with Maven
-        run: mvn clean test -e
+      - name: Run Maven Tests with Debug
+        run: mvn clean test -X
 
       - name: Upload Surefire Reports
         if: failure()
