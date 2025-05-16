@@ -20,7 +20,7 @@ jobs:
           java-version: '17'
 
       - name: Run Maven Tests with Debug
-        run: mvn clean test -e
+        run: mvn clean test -X
 
       - name: Upload Surefire Reports
         if: failure()
