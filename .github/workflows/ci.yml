@@ -2,9 +2,9 @@ name: Cucumber BDD Test Execution
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -47,13 +47,13 @@ jobs:
 
       - name: Archive test results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: cucumber-reports
           path: target/cucumber-reports/
 
       - name: Publish Test Report
         if: always()
-        uses: mikepenz/action-junit-report@v3
+        uses: mikepenz/action-junit-report@v2
         with:
           report_paths: '**/target/surefire-reports/TEST-*.xml'
