@@ -1,4 +1,4 @@
-name: Cucumber BDD Test Execution
+name: Cucumber BDD Test
 
 on:
   push:
@@ -12,48 +12,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v1
 
-      - name: Set up Liberica JDK 17.0.14
-        uses: actions/setup-java@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
         with:
-          java-version: '17.0.14'
-          distribution: 'liberica'
-          cache: maven
+          java-version: '17'
 
       - name: Install Chrome
         run: |
-          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-          echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
 
-      - name: Install ChromeDriver
-        run: |
-          CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d '.' -f 1)
-          CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
-          wget -q "https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
-          unzip chromedriver_linux64.zip
-          chmod +x chromedriver
-          sudo mv chromedriver /usr/local/bin/
-
-      - name: Build and test with Maven
-        run: mvn clean test -Dcucumber.options="--tags @SmokeTest"
-
-      - name: Generate Cucumber Reports
-        if: always()
-        run: mvn verify
-
-      - name: Archive test results
-        if: always()
-        uses: actions/upload-artifact@v1
-        with:
-          name: cucumber-reports
-          path: target/cucumber-reports/
-
-      - name: Publish Test Report
-        if: always()
-        uses: mikepenz/action-junit-report@v1
-        with:
-          report_paths: '**/target/surefire-reports/TEST-*.xml'
+      - name: Run Tests
+        run: mvn clean test
