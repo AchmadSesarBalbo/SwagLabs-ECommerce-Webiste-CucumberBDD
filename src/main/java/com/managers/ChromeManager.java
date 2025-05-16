@@ -7,8 +7,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class ChromeManager {
     public static WebDriver buildDriver() {
-        WebDriverManager.chromedriver().driverVersion("130.0.6669.2").setup();
-
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-maximized");
 
