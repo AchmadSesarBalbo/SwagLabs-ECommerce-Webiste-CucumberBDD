@@ -25,3 +25,10 @@ jobs:
 
       - name: Build and Test with Maven
         run: mvn clean test
+
+      - name: Upload Surefire Reports
+        if: failure()  # hanya upload jika test gagal
+        uses: actions/upload-artifact@v3
+        with:
+          name: surefire-reports
+          path: target/surefire-reports/
