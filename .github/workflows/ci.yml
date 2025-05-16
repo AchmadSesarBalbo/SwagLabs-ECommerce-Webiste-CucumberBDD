@@ -23,7 +23,7 @@ jobs:
         run: mvn clean test
 
       - name: Upload Test Report
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v3.1.0
         with:
           name: surefire-reports
           path: target/surefire-reports
